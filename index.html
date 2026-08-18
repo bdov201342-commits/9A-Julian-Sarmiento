@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millonarios Portfolio</title>
+    https://www.swcolegios.com/swcolpkdjswd/rchvsieswc/22/ftsdsswc/1774899151_2026-03-30.jpg
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shine {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 51, 160, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 51, 160, 0.7); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e1a;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Fondo con patrón de estrellas */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1.5px 1.5px at 90% 80%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 20% 90%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1.5px 1.5px at 80% 15%, rgba(255,215,0,0.4), transparent),
+                radial-gradient(1px 1px at 45% 75%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 15% 45%, rgba(255,215,0,0.5), transparent),
+                radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 5% 70%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 55% 30%, rgba(255,215,0,0.3), transparent),
+                radial-gradient(1px 1px at 85% 90%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 95% 5%, rgba(255,255,255,0.4), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        /* Header estilo Millonarios */
+        .hero {
+            background: linear-gradient(135deg, #001a4d 0%, #0033a0 40%, #002277 100%);
+            border-radius: 24px 24px 0 0;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #ffd700;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 40px,
+                rgba(255, 255, 255, 0.02) 40px,
+                rgba(255, 255, 255, 0.02) 41px
+            );
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,215,0,0.08), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            padding: 30px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .hero-brand {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hero-stars {
+            display: flex;
+            gap: 4px;
+        }
+
+        .hero-stars svg {
+            width: 28px;
+            height: 28px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        .hero-stars svg:nth-child(2) { animation-delay: 0.4s; }
+        .hero-stars svg:nth-child(3) { animation-delay: 0.8s; }
+        .hero-stars svg:nth-child(4) { animation-delay: 1.2s; }
+        .hero-stars svg:nth-child(5) { animation-delay: 1.6s; }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, #fff, #ffd700, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 50px;
+            padding: 8px 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffd700;
+            letter-spacing: 1px;
+        }
+
+        /* Contenedor principal */
+        .main-container {
+            background: linear-gradient(180deg, #0f1424 0%, #0a0e1a 100%);
+            border-radius: 0 0 24px 24px;
+            border: 1px solid rgba(0, 51, 160, 0.3);
+            border-top: none;
+            overflow: hidden;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        .content-wrapper {
+            display: flex;
+            gap: 35px;
+            padding: 35px;
+        }
+
+        /* Sidebar con imagen SVG */
+        .sidebar {
+            flex: 0 0 300px;
+        }
+
+        .profile-card {
+            background: linear-gradient(145deg, rgba(0, 51, 160, 0.15), rgba(0, 26, 77, 0.3));
+            border: 1px solid rgba(0, 51, 160, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            animation: pulse-glow 3s ease-in-out infinite;
+            backdrop-filter: blur(5px);
+        }
+
+        .profile-card .avatar {
+            width: 100%;
+            border-radius: 14px;
+            display: block;
+        }
+
+        .profile-card .avatar-caption {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 12px;
+            color: rgba(255,215,0,0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .profile-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(0, 51, 160, 0.08), rgba(0, 26, 77, 0.15));
+            border-radius: 16px;
+            border: 1px solid rgba(0, 51, 160, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #0033a0, #ffd700);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .profile-section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .profile-section h2 small {
+            font-size: 14px;
+            font-weight: 400;
+            color: #ffd700;
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .profile-section p {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* Botones */
+        .buttons-container {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .buttons-container button {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0033a0, #002277);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .buttons-container button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .buttons-container button:hover::before {
+            left: 100%;
+        }
+
+        .buttons-container button:hover {
+            background: linear-gradient(135deg, #0044cc, #0033a0);
+            border-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 51, 160, 0.4);
+        }
+
+        .buttons-container button:active {
+            transform: translateY(0);
+        }
+
+        /* Horario */
+        .schedule-section {
+            display: none;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .schedule-section.visible {
+            display: block;
+        }
+
+        .schedule-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding: 0 4px;
+        }
+
+        .schedule-header h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .schedule-header h3 span {
+            color: #ffd700;
+        }
+
+        .schedule-header .line-deco {
+            flex: 1;
+            height: 1px;
+            margin-left: 20px;
+            background: linear-gradient(90deg, rgba(0,51,160,0.6), transparent);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 51, 160, 0.3);
+            background: rgba(0, 26, 77, 0.15);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 900px;
+        }
+
+        thead th {
+            background: #001a4d;
+            color: #ffd700;
+            padding: 14px 10px;
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #ffd700;
+            font-size: 12px;
+        }
+
+        thead th:first-child {
+            color: rgba(255,255,255,0.7);
+        }
+
+        tbody td {
+            padding: 11px 8px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 51, 160, 0.15);
+            vertical-align: middle;
+            color: rgba(255,255,255,0.85);
+        }
+
+        tbody tr:hover td {
+            background: rgba(0, 51, 160, 0.1);
+        }
+
+        .row-break td {
+            background: rgba(0, 26, 77, 0.4);
+            font-weight: 800;
+            color: #ffd700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .row-minor td {
+            background: rgba(0, 26, 77, 0.15);
+            color: rgba(255,255,255,0.35);
+            font-style: italic;
+            font-size: 12px;
+        }
+
+        .subject {
+            display: block;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .teacher {
+            display: block;
+            font-size: 10px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 2px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(0, 51, 160, 0.2);
+            margin-top: 10px;
+        }
+
+        .footer span {
+            font-size: 11px;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .footer .star-divider {
+            color: #ffd700;
+            margin: 0 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .content-wrapper {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .sidebar {
+                flex: 0 0 auto;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .hero-inner {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .profile-section h2 {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .profile-section::before {
+                width: 100%;
+                height: 3px;
+                top: 0;
+                left: 0;
+            }
+
+            .profile-section p {
+                text-align: center;
+            }
+
+            .buttons-container {
+                justify-content: center;
+            }
+
+            .schedule-header h3 {
+                text-align: center;
+                font-size: 18px;
+            }
+
+            .schedule-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .schedule-header .line-deco {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-inner {
+                padding: 20px 15px;
+            }
+
+            .hero-title {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .hero-badge {
+                padding: 5px 14px;
+            }
+
+            .hero-badge span {
+                font-size: 11px;
+            }
+
+            .buttons-container button {
+                width: 100%;
+                padding: 14px;
+                font-size: 12px;
+            }
+
+            .content-wrapper {
+                padding: 15px;
+            }
+
+            .profile-section {
+                padding: 18px;
+            }
+
+            .page-wrapper {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="hero-brand">
+                <div class="hero-stars">
+                    <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+                    <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+                    <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+                    <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+                    <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+                </div>
+                <div>
+                    <div class="hero-title">Millonarios FC</div>
+                    <div class="hero-subtitle">Embajadores del saber</div>
+                </div>
+            </div>
+            <div class="hero-badge">
+                <span>&#9733; 1946 &#9733;</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <div class="main-container">
+        <div class="content-wrapper">
+
+            <!-- Sidebar with SVG -->
+            <aside class="sidebar">
+                <div class="profile-card">
+                    <svg class="avatar" viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#f5d0a9"/>
+                                <stop offset="100%" stop-color="#e8b88a"/>
+                            </linearGradient>
+                            <linearGradient id="jerseyBlue" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#0033a0"/>
+                                <stop offset="100%" stop-color="#002277"/>
+                            </linearGradient>
+                            <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#0a0e1a"/>
+                                <stop offset="100%" stop-color="#001133"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Fondo circular -->
+                        <circle cx="170" cy="180" r="155" fill="url(#bgGrad)" stroke="#ffd700" stroke-width="2" opacity="0.6"/>
+
+                        <!-- Estrellas decorativas fondo -->
+                        <polygon points="80,60 82,66 88,66 83,70 85,76 80,72 75,76 77,70 72,66 78,66" fill="#ffd700" opacity="0.3"/>
+                        <polygon points="260,50 262,56 268,56 263,60 265,66 260,62 255,66 257,60 252,56 258,56" fill="#ffd700" opacity="0.3"/>
+                        <polygon points="250,280 252,286 258,286 253,290 255,296 250,292 245,296 247,290 242,286 248,286" fill="#ffd700" opacity="0.3"/>
+                        <polygon points="90,290 92,296 98,296 93,300 95,306 90,302 85,306 87,300 82,296 88,296" fill="#ffd700" opacity="0.3"/>
+
+                        <!-- Pelo -->
+                        <ellipse cx="170" cy="95" rx="58" ry="50" fill="#1a1a2e"/>
+                        <ellipse cx="170" cy="100" rx="55" ry="42" fill="#252540"/>
+                        <ellipse cx="145" cy="82" rx="20" ry="18" fill="#1a1a2e"/>
+                        <ellipse cx="195" cy="82" rx="20" ry="18" fill="#1a1a2e"/>
+                        <ellipse cx="170" cy="70" rx="25" ry="18" fill="#1a1a2e"/>
+
+                        <!-- Rostro -->
+                        <ellipse cx="170" cy="125" rx="42" ry="48" fill="url(#skin)"/>
+
+                        <!-- Orejas -->
+                        <ellipse cx="128" cy="120" rx="8" ry="14" fill="#f0c8a0"/>
+                        <ellipse cx="212" cy="120" rx="8" ry="14" fill="#f0c8a0"/>
+
+                        <!-- Ojos -->
+                        <ellipse cx="155" cy="118" rx="6" ry="7" fill="#fff"/>
+                        <ellipse cx="185" cy="118" rx="6" ry="7" fill="#fff"/>
+                        <circle cx="155" cy="118" r="4" fill="#2c1810"/>
+                        <circle cx="185" cy="118" r="4" fill="#2c1810"/>
+                        <circle cx="157" cy="116" r="1.5" fill="#fff" opacity="0.8"/>
+                        <circle cx="187" cy="116" r="1.5" fill="#fff" opacity="0.8"/>
+
+                        <!-- Cejas -->
+                        <path d="M147 107 Q155 103 163 107" stroke="#1a1a2e" stroke-width="2" fill="none"/>
+                        <path d="M177 107 Q185 103 193 107" stroke="#1a1a2e" stroke-width="2" fill="none"/>
+
+                        <!-- Nariz -->
+                        <path d="M168 124 Q170 132 172 124" stroke="#d4a574" stroke-width="1.5" fill="none"/>
+
+                        <!-- Sonrisa -->
+                        <path d="M158 138 Q170 148 182 138" stroke="#c49070" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+                        <!-- Cuello -->
+                        <rect x="157" y="165" width="26" height="14" rx="4" fill="url(#skin)"/>
+
+                        <!-- Camiseta Millonarios FC -->
+                        <path d="M130 175 L210 175 L220 220 L220 310 L180 310 L180 250 L160 250 L160 310 L120 310 L120 220 Z" fill="url(#jerseyBlue)"/>
+
+                        <!-- Cuello camiseta -->
+                        <path d="M155 175 Q170 185 185 175" fill="#fff" stroke="#ccc" stroke-width="1"/>
+
+                        <!-- Líneas verticales camiseta -->
+                        <line x1="140" y1="185" x2="140" y2="310" stroke="#002277" stroke-width="2" opacity="0.3"/>
+                        <line x1="160" y1="185" x2="160" y2="310" stroke="#002277" stroke-width="2" opacity="0.3"/>
+                        <line x1="180" y1="185" x2="180" y2="310" stroke="#002277" stroke-width="2" opacity="0.3"/>
+                        <line x1="200" y1="185" x2="200" y2="310" stroke="#002277" stroke-width="2" opacity="0.3"/>
+
+                        <!-- Estrella escudo -->
+                        <polygon points="170,210 173,218 182,218 175,223 178,232 170,227 162,232 165,223 158,218 167,218" fill="#ffd700"/>
+
+                        <!-- Número camiseta -->
+                        <text x="170" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="900" fill="#ffd700" opacity="0.6">10</text>
+
+                        <!-- Brazos -->
+                        <path d="M130 190 L108 210 L105 240 L112 242 L118 215 L130 200" fill="url(#skin)"/>
+                        <path d="M210 190 L232 210 L235 240 L228 242 L222 215 L210 200" fill="url(#skin)"/>
+
+                        <!-- Mangas camiseta -->
+                        <path d="M130 190 L118 200 L112 195 L120 185 Z" fill="url(#jerseyBlue)"/>
+                        <path d="M210 190 L222 200 L228 195 L220 185 Z" fill="url(#jerseyBlue)"/>
+
+                        <!-- Pantalón -->
+                        <path d="M130 310 L210 310 L210 340 L195 340 L195 360 L185 360 L185 340 L155 340 L155 360 L145 360 L145 340 L130 340 Z" fill="#0a0e1a"/>
+
+                        <!-- Zapatos -->
+                        <ellipse cx="145" cy="365" rx="18" ry="7" fill="#1a1a1a"/>
+                        <ellipse cx="195" cy="365" rx="18" ry="7" fill="#1a1a1a"/>
+
+                        <!-- Balón decorativo -->
+                        <circle cx="275" cy="300" r="18" fill="#fff" stroke="#000" stroke-width="1"/>
+                        <path d="M265 290 Q275 295 285 290" stroke="#000" stroke-width="1" fill="none"/>
+                        <path d="M268 310 Q275 305 282 310" stroke="#000" stroke-width="1" fill="none"/>
+                        <path d="M275 282 L275 318" stroke="#000" stroke-width="1"/>
+                        <path d="M257 300 Q265 295 270 290" stroke="#000" stroke-width="1" fill="none"/>
+                        <path d="M280 290 Q285 295 293 300" stroke="#000" stroke-width="1" fill="none"/>
+                    </svg>
+                    <div class="avatar-caption">&#9733; La grandeza se construye &#9733;</div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+
+                <section class="profile-section">
+                    <h2>
+                        Julián David Sarmiento
+                        <small>Estudiante · Curso 11°</small>
+                    </h2>
+                    <p>Hincha del más grande de Colombia. Este es mi portafolio y horario escolar.</p>
+                    <div class="buttons-container">
+                        <button id="btnToggle">&#9733; Abrir / Ocultar Horario</button>
+                        <button id="btnColor">&#9733; Cambiar Color</button>
+                        <button id="btnRegister">&#9733; Registro</button>
+                    </div>
+                </section>
+
+                <section id="schedule" class="schedule-section">
+                    <div class="schedule-header">
+                        <h3>Horario <span>Albiazul</span></h3>
+                        <div class="line-deco"></div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hora</th>
+                                    <th>DIA 1</th>
+                                    <th>DIA 2</th>
+                                    <th>DIA 3</th>
+                                    <th>DIA 4</th>
+                                    <th>DIA 5</th>
+                                    <th>DIA 6</th>
+                                    <th>DIA 7</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="row-minor">
+                                    <td>06:45 am - 06:50 am</td>
+                                    <td>Entrada</td><td>Entrada</td><td>Entrada</td><td>Entrada</td><td>Entrada</td><td>Entrada</td><td>Entrada</td>
+                                </tr>
+                                <tr>
+                                    <td>06:50 am - 07:45 am</td>
+                                    <td><span class="subject">BIOLOGÍA</span><span class="teacher">PAOLA ANDREA...</span></td>
+                                    <td><span class="subject">EDUCACIÓN FÍSICA...</span><span class="teacher">LUIS EDUARDO...</span></td>
+                                    <td><span class="subject">ESPAÑOL</span><span class="teacher">RAFAEL ANDRES...</span></td>
+                                    <td><span class="subject">FRANCES</span><span class="teacher">ANYI LORENA...</span></td>
+                                    <td><span class="subject">BIOLOGÍA</span><span class="teacher">PAOLA ANDREA...</span></td>
+                                    <td><span class="subject">EDUCACIÓN FÍSICA...</span><span class="teacher">LUIS EDUARDO...</span></td>
+                                    <td><span class="subject">ENGLISH</span><span class="teacher">STEVENSON ALFONSO...</span></td>
+                                </tr>
+                                <tr>
+                                    <td>07:45 am - 08:40 am</td>
+                                    <td><span class="subject">MATEMÁTICAS</span><span class="teacher">OVIDIO VERANO...</span></td>
+                                    <td><span class="subject">SOCIALES</span><span class="teacher">MIGUEL ANGEL...</span></td>
+                                    <td><span class="subject">SOCIALES</span><span class="teacher">MIGUEL ANGEL...</span></td>
+                                    <td><span class="subject">ESPAÑOL</span><span class="teacher">RAFAEL ANDRES...</span></td>
+                                    <td><span class="subject">MATEMÁTICAS</span><span class="teacher">OVIDIO VERANO...</span></td>
+                                    <td><span class="subject">ENGLISH</span><span class="teacher">STEVENSON ALFONSO...</span></td>
+                                    <td><span class="subject">SOCIALES</span><span class="teacher">MIGUEL ANGEL...</span></td>
+                                </tr>
+                                <tr class="row-break">
+                                    <td>08:40 am - 09:35 am</td>
+                                    <td colspan="7">Descanso</td>
+                                </tr>
+                                <tr>
+                                    <td>09:35 am - 10:30 am</td>
+                                    <td><span class="subject">ESPAÑOL</span><span class="teacher">RAFAEL ANDRES...</span></td>
+                                    <td><span class="subject">FILOSOFÍA</span><span class="teacher">YESSICA NATALIA...</span></td>
+                                    <td><span class="subject">MATEMÁTICAS</span><span class="teacher">OVIDIO VERANO...</span></td>
+                                    <td><span class="subject">INFORMÁTICA</span><span class="teacher">BRANDON ALBERTO...</span></td>
+                                    <td><span class="subject">ENGLISH</span><span class="teacher">STEVENSON ALFONSO...</span></td>
+                                    <td><span class="subject">FRANCES</span><span class="teacher">ANYI LORENA...</span></td>
+                                    <td><span class="subject">INFORMÁTICA</span><span class="teacher">BRANDON ALBERTO...</span></td>
+                                </tr>
+                                <tr>
+                                    <td>10:30 am - 11:25 am</td>
+                                    <td><span class="subject">SOCIALES</span><span class="teacher">MIGUEL ANGEL...</span></td>
+                                    <td><span class="subject">MATEMÁTICAS</span><span class="teacher">OVIDIO VERANO...</span></td>
+                                    <td><span class="subject">FÍSICA</span><span class="teacher">JOSE RICARDO...</span></td>
+                                    <td><span class="subject">ENGLISH</span><span class="teacher">STEVENSON ALFONSO...</span></td>
+                                    <td><span class="subject">SOCIALES</span><span class="teacher">MIGUEL ANGEL...</span></td>
+                                    <td><span class="subject">MATEMÁTICAS</span><span class="teacher">OVIDIO VERANO...</span></td>
+                                    <td><span class="subject">QUÍMICA</span><span class="teacher">JENCY LEONEL...</span></td>
+                                </tr>
+                                <tr>
+                                    <td>11:25 am - 12:20 pm</td>
+                                    <td><span class="subject">FRANCES</span></td>
+                                    <td><span class="subject">SKILLS</span></td>
+                                    <td><span class="subject">DANZAS</span></td>
+                                    <td><span class="subject">EDUCACIÓN RELIGIOSA...</span></td>
+                                    <td><span class="subject">DIBUJO</span></td>
+                                    <td><span class="subject">SOCIALES</span></td>
+                                    <td><span class="subject">BIOLOGÍA</span></td>
+                                </tr>
+                                <tr>
+                                    <td>12:20 pm - 01:15 pm</td>
+                                    <td><span class="subject">CÁTEDRA PARA LA PAZ</span></td>
+                                    <td><span class="subject">ESPAÑOL</span></td>
+                                    <td><span class="subject">PILEO</span></td>
+                                    <td><span class="subject">BIOLOGÍA</span></td>
+                                    <td><span class="subject">DIBUJO</span></td>
+                                    <td><span class="subject">PILEO</span></td>
+                                    <td><span class="subject">ESPAÑOL</span></td>
+                                </tr>
+                                <tr>
+                                    <td>01:15 pm - 02:10 pm</td>
+                                    <td><span class="subject">ENGLISH</span></td>
+                                    <td><span class="subject">ENGLISH</span></td>
+                                    <td><span class="subject">BIOLOGÍA</span></td>
+                                    <td><span class="subject">MATEMÁTICAS</span></td>
+                                    <td><span class="subject">DANZAS</span></td>
+                                    <td><span class="subject">INFORMÁTICA</span></td>
+                                    <td><span class="subject">MATEMÁTICAS</span></td>
+                                </tr>
+                                <tr class="row-minor">
+                                    <td>02:10 pm - 02:15 pm</td>
+                                    <td>Salida</td><td>Salida</td><td>Salida</td><td>Salida</td><td>Salida</td><td>Salida</td><td>Salida</td>
+                                </tr>
+                                <tr class="row-minor">
+                                    <td>02:20 pm - 05:00 pm</td>
+                                    <td>Sin docente</td><td>Sin docente</td><td>Sin docente</td><td>Sin docente</td><td>Sin docente</td><td>Sin docente</td><td>Sin docente</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <div class="footer">
+            <span>&#9733; Millonarios FC &#9733;</span>
+            <span class="star-divider">|</span>
+            <span>Orgullosamente colombiano</span>
+            <span class="star-divider">|</span>
+            <span>Hecho con &#9829;</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('btnToggle').onclick = function () {
+        document.getElementById('schedule').classList.toggle('visible');
+    };
+
+    var colorIndex = 0;
+    var themes = [
+        { th: '#001a4d', border: '#ffd700', text: '#ffd700' },
+        { th: '#1a0a2e', border: '#ff6b6b', text: '#ff6b6b' },
+        { th: '#0a1a2e', border: '#4fc3f7', text: '#4fc3f7' },
+        { th: '#2e0a0a', border: '#ffd54f', text: '#ffd54f' },
+        { th: '#0a2e1a', border: '#ce93d8', text: '#ce93d8' }
+    ];
+
+    document.getElementById('btnColor').onclick = function () {
+        colorIndex = (colorIndex + 1) % themes.length;
+        var t = themes[colorIndex];
+        var style = document.getElementById('dynamicStyle');
+        if (!style) {
+            style = document.createElement('style');
+            style.id = 'dynamicStyle';
+            document.head.appendChild(style);
+        }
+        style.textContent =
+            'thead th { background: ' + t.th + ' !important; color: ' + t.text + ' !important; border-bottom-color: ' + t.border + ' !important; } ' +
+            '.row-break td { background: ' + t.th + ' !important; color: ' + t.border + ' !important; } ' +
+            '.buttons-container button { background: linear-gradient(135deg, ' + t.th + ', ' + t.th + ') !important; border-color: ' + t.border + ' !important; } ' +
+            '.buttons-container button:hover { border-color: ' + t.border + ' !important; }';
+    };
+
+    document.getElementById('btnRegister').onclick = function () {
+        window.location.href = 'Registro.html';
+    };
+</script>
+</body>
+</html>
