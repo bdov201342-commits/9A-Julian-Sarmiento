@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro · Millonarios FC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes shine {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 51, 160, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 51, 160, 0.6); }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(255, 215, 0, 0.3); }
+            50% { border-color: rgba(255, 215, 0, 0.7); }
+        }
+
+        @keyframes checkmark {
+            0% { stroke-dashoffset: 50; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1.5px 1.5px at 90% 80%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 20% 90%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1.5px 1.5px at 80% 15%, rgba(255,215,0,0.4), transparent),
+                radial-gradient(1px 1px at 45% 75%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 15% 45%, rgba(255,215,0,0.5), transparent),
+                radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 5% 70%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 55% 30%, rgba(255,215,0,0.3), transparent),
+                radial-gradient(1px 1px at 85% 90%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 95% 5%, rgba(255,255,255,0.4), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 520px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(135deg, #001a4d 0%, #0033a0 40%, #002277 100%);
+            border-radius: 24px 24px 0 0;
+            padding: 25px 35px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #ffd700;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 40px,
+                rgba(255, 255, 255, 0.02) 40px,
+                rgba(255, 255, 255, 0.02) 41px
+            );
+        }
+
+        .hero-stars {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stars svg {
+            width: 26px;
+            height: 26px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        .hero-stars svg:nth-child(2) { animation-delay: 0.3s; }
+        .hero-stars svg:nth-child(3) { animation-delay: 0.6s; }
+        .hero-stars svg:nth-child(4) { animation-delay: 0.9s; }
+        .hero-stars svg:nth-child(5) { animation-delay: 1.2s; }
+
+        .hero-title {
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, #fff, #ffd700, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Card del formulario */
+        .form-card {
+            background: linear-gradient(180deg, #0f1424 0%, #0a0e1a 100%);
+            border-radius: 0 0 24px 24px;
+            border: 1px solid rgba(0, 51, 160, 0.3);
+            border-top: none;
+            padding: 40px 35px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        .form-card form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group label .label-icon {
+            color: #ffd700;
+        }
+
+        .input-group input {
+            background: rgba(0, 26, 77, 0.4);
+            border: 1px solid rgba(0, 51, 160, 0.4);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 15px;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255,255,255,0.2);
+        }
+
+        .input-group input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1), 0 0 20px rgba(0, 51, 160, 0.3);
+            background: rgba(0, 26, 77, 0.6);
+        }
+
+        .input-group input:-webkit-autofill,
+        .input-group input:-webkit-autofill:hover,
+        .input-group input:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 30px #0f1424 inset;
+            -webkit-text-fill-color: #fff;
+            caret-color: #fff;
+        }
+
+        /* Botón submit */
+        .btn-submit {
+            background: linear-gradient(135deg, #0033a0, #002277);
+            color: #fff;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 8px;
+            font-family: inherit;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #0044cc, #0033a0);
+            border-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 51, 160, 0.5);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Botón volver */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            color: rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: inherit;
+            margin-top: 16px;
+            align-self: center;
+        }
+
+        .btn-back:hover {
+            color: #ffd700;
+            border-color: rgba(255,215,0,0.4);
+            background: rgba(255,215,0,0.05);
+        }
+
+        /* Mensaje de éxito */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .success-message .check-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+        }
+
+        .success-message .check-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .success-message .check-icon svg polyline {
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: checkmark 0.6s ease-out forwards;
+        }
+
+        .success-message h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffd700;
+            margin-bottom: 6px;
+        }
+
+        .success-message p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 18px 35px 10px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.15);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .footer .star {
+            color: #ffd700;
+        }
+
+        @media (max-width: 480px) {
+            .page-wrapper {
+                padding: 0;
+            }
+            .hero {
+                padding: 20px;
+            }
+            .hero-title {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+            .form-card {
+                padding: 25px 20px;
+            }
+            .btn-submit {
+                font-size: 13px;
+                padding: 14px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-stars">
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+        </div>
+        <div class="hero-title">Registro</div>
+        <div class="hero-subtitle">&#9733; Únete a la familia embajadora &#9733;</div>
+    </header>
+
+    <!-- Formulario -->
+    <div class="form-card">
+        <form id="registerForm" action="Registro.html" method="post" onsubmit="return handleSubmit(event)">
+            <p class="error-msg" id="errorMsg" style="display:none; color:#ff3366; font-size:13px; text-align:center; margin:0 0 10px;">Usuario o contraseña incorrectos.</p>
+            <div id="formFields">
+                <div class="input-group">
+                    <label>
+                        <span class="label-icon">&#9733;</span>
+                        Nombre de Usuario
+                    </label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre de usuario" required autocomplete="username">
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        <span class="label-icon">&#9733;</span>
+                        Contraseña
+                    </label>
+                    <input type="password" id="password" name="password" placeholder="Tu contraseña" required autocomplete="new-password">
+                </div>
+
+                <button type="submit" class="btn-submit" id="btnSubmit">Registrarse</button>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <div class="check-icon">
+                    <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="26" cy="26" r="24" fill="none" stroke="#ffd700" stroke-width="2"/>
+                        <polyline points="16,26 23,33 36,18" fill="none" stroke="#ffd700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h2>&#9733; Bienvenido, Embajador &#9733;</h2>
+                <p>Tu registro se ha completado exitosamente.</p>
+            </div>
+
+            <a href="index.html" class="btn-back">&#8592; Volver al inicio</a>
+        </form>
+    </div>
+
+    <div class="footer">
+        <span class="star">&#9733;</span> Millonarios FC <span class="star">&#9733;</span> &nbsp;|&nbsp; Hecho con &#9829;
+    </div>
+</div>
+
+<script>
+    function handleSubmit(e) {
+        e.preventDefault();
+        const nombre = document.getElementById('nombre').value.trim();
+        const password = document.getElementById('password').value;
+        const errorMsg = document.getElementById('errorMsg');
+
+        if (nombre !== 'Millonarios' || password !== 'MillosGoat') {
+            errorMsg.style.display = 'block';
+            return false;
+        }
+
+        errorMsg.style.display = 'none';
+        document.getElementById('formFields').style.display = 'none';
+        document.getElementById('btnSubmit').style.display = 'none';
+        document.getElementById('successMessage').classList.add('show');
+
+        localStorage.setItem('usuario', nombre);
+
+        setTimeout(function () {
+            window.location.href = 'menu.html';
+        }, 1500);
+
+        return false;
+    }
+</script>
+</body>
+</html>
