@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tareas · Millonarios FC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes shine {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1.5px 1.5px at 90% 80%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 20% 90%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1.5px 1.5px at 80% 15%, rgba(255,215,0,0.4), transparent),
+                radial-gradient(1px 1px at 45% 75%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 15% 45%, rgba(255,215,0,0.5), transparent),
+                radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 5% 70%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 55% 30%, rgba(255,215,0,0.3), transparent),
+                radial-gradient(1px 1px at 85% 90%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 95% 5%, rgba(255,255,255,0.4), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 640px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #001a4d 0%, #0033a0 40%, #002277 100%);
+            border-radius: 24px 24px 0 0;
+            padding: 22px 35px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #ffd700;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 40px,
+                rgba(255, 255, 255, 0.02) 40px,
+                rgba(255, 255, 255, 0.02) 41px
+            );
+        }
+
+        .hero-stars {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stars svg {
+            width: 22px;
+            height: 22px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        .hero-stars svg:nth-child(2) { animation-delay: 0.3s; }
+        .hero-stars svg:nth-child(3) { animation-delay: 0.6s; }
+        .hero-stars svg:nth-child(4) { animation-delay: 0.9s; }
+        .hero-stars svg:nth-child(5) { animation-delay: 1.2s; }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, #fff, #ffd700, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 11px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-top: 3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: linear-gradient(180deg, #0f1424 0%, #0a0e1a 100%);
+            border-radius: 0 0 24px 24px;
+            border: 1px solid rgba(0, 51, 160, 0.3);
+            border-top: none;
+            padding: 30px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        #saludo {
+            text-align: center;
+            color: #ffd700;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .formulario {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .formulario input {
+            flex: 1;
+            padding: 13px 16px;
+            background: rgba(0, 26, 77, 0.4);
+            border: 1px solid rgba(0, 51, 160, 0.5);
+            border-radius: 50px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+
+        .formulario input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1), 0 0 20px rgba(0, 51, 160, 0.3);
+        }
+
+        .formulario input::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+
+        .btn-menu {
+            background: linear-gradient(135deg, #0033a0, #002277);
+            color: #fff;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 13px 26px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .btn-menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-menu:hover::before {
+            left: 100%;
+        }
+
+        .btn-menu:hover {
+            background: linear-gradient(135deg, #0044cc, #0033a0);
+            border-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 51, 160, 0.5);
+        }
+
+        .tarea {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 26, 77, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tarea:hover {
+            transform: translateX(4px);
+        }
+
+        .tarea input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #ffd700;
+            flex-shrink: 0;
+        }
+
+        .tarea span {
+            flex: 1;
+            color: rgba(255,255,255,0.85);
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+
+        .tarea.hecha span {
+            text-decoration: line-through;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .tarea button {
+            padding: 8px 18px;
+            color: #ff6b6b;
+            background: transparent;
+            border: 1px solid rgba(255, 107, 107, 0.5);
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .tarea button:hover {
+            background: #ff6b6b;
+            color: #0a0e1a;
+        }
+
+        .btn-salir {
+            display: block;
+            text-align: center;
+            background: transparent;
+            color: rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: inherit;
+            margin: 20px auto 0;
+            width: fit-content;
+        }
+
+        .btn-salir:hover {
+            color: #ffd700;
+            border-color: rgba(255,215,0,0.4);
+            background: rgba(255,215,0,0.05);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 14px 35px 8px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.15);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .footer .star {
+            color: #ffd700;
+        }
+
+        @media (max-width: 520px) {
+            .card {
+                padding: 18px;
+            }
+            .hero {
+                padding: 16px 15px;
+            }
+            .hero-title {
+                font-size: 17px;
+                letter-spacing: 2px;
+            }
+            .formulario {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <header class="hero">
+        <div class="hero-stars">
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg viewBox="0 0 24 24" fill="#ffd700"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+        </div>
+        <div class="hero-title">Lista de tareas</div>
+        <div class="hero-subtitle">&#9733; Organiza tu semana embajadora &#9733;</div>
+    </header>
+
+    <div class="card">
+        <p id="saludo"></p>
+
+        <div class="formulario">
+            <input type="text" id="nuevaTarea" placeholder="Escribe una tarea..." autofocus>
+            <button type="button" class="btn-menu" onclick="agregarTarea()">&#9733; Agregar</button>
+        </div>
+
+        <div id="lista"></div>
+
+        <a class="btn-salir" href="menu.html">&#8592; Volver al menú</a>
+    </div>
+
+    <div class="footer">
+        <span class="star">&#9733;</span> Millonarios FC <span class="star">&#9733;</span> &nbsp;|&nbsp; Hecho con &#9829;
+    </div>
+</div>
+
+<script>
+    var nombre = localStorage.getItem('usuario') || 'Millonarios';
+    document.getElementById('saludo').textContent = 'Hola, ' + nombre + ' ★ Esta es tu lista de tareas';
+
+    var input = document.getElementById('nuevaTarea');
+    input.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') agregarTarea();
+    });
+
+    function obtenerTareas() {
+        var tareas = localStorage.getItem('tareas');
+        return tareas ? JSON.parse(tareas) : [];
+    }
+
+    function guardarTareas(tareas) {
+        localStorage.setItem('tareas', JSON.stringify(tareas));
+    }
+
+    function agregarTarea() {
+        var texto = input.value.trim();
+        if (!texto) {
+            alert('Escribe una tarea.');
+            return;
+        }
+        var tareas = obtenerTareas();
+        tareas.push({ texto: texto, hecha: false });
+        guardarTareas(tareas);
+        input.value = '';
+        input.focus();
+        mostrarTareas();
+    }
+
+    function marcarTarea(indice, checkbox) {
+        var tareas = obtenerTareas();
+        tareas[indice].hecha = checkbox.checked;
+        guardarTareas(tareas);
+        mostrarTareas();
+    }
+
+    function eliminarTarea(indice) {
+        var tareas = obtenerTareas();
+        tareas.splice(indice, 1);
+        guardarTareas(tareas);
+        mostrarTareas();
+    }
+
+    function mostrarTareas() {
+        var contenedor = document.getElementById('lista');
+        var tareas = obtenerTareas();
+
+        if (tareas.length === 0) {
+            contenedor.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.4); font-weight:700;">No hay tareas. ¡Agrega tu primera tarea!</p>';
+            return;
+        }
+
+        contenedor.innerHTML = '';
+        tareas.forEach(function (tarea, indice) {
+            var div = document.createElement('div');
+            div.className = 'tarea' + (tarea.hecha ? ' hecha' : '');
+            div.innerHTML =
+                '<input type="checkbox" ' + (tarea.hecha ? 'checked' : '') +
+                ' onchange="marcarTarea(' + indice + ', this)">' +
+                '<span>' + tarea.texto + '</span>' +
+                '<button onclick="eliminarTarea(' + indice + ')">Eliminar</button>';
+            contenedor.appendChild(div);
+        });
+    }
+
+    mostrarTareas();
+</script>
+</body>
+</html>
